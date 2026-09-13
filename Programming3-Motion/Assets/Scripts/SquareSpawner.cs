@@ -52,7 +52,7 @@ public class SquareSpawner : MonoBehaviour
         Vector2 bottomLeft = position + new Vector2(-size, -size);
         Vector2 bottomRight = position + new Vector2(size, -size);
 
-    //drawing line
+
         Debug.DrawLine(topLeft, topRight, color);
         Debug.DrawLine(topRight, bottomRight, color);
         Debug.DrawLine(bottomRight, bottomLeft, color);
