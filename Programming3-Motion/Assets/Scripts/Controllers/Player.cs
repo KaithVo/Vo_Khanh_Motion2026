@@ -10,6 +10,11 @@ public class Player : MonoBehaviour
     public GameObject bombPrefab;
     public Transform bombsTransform;
 
+    //class variable values stores on the player
+    public Vector3 bombOffSet;
+    public float bombTrailSpacing;
+    public int numberOfTrailBombs;
+
     void Start()
     {
         Vector2 currentMousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -31,11 +36,18 @@ public class Player : MonoBehaviour
         {
 
         }
+
+
         //if press B spawn the bomb prefab at the player's position with a random offset of -1 to 1 in both x and y axis
         if (Keyboard.current.bKey.wasPressedThisFrame)
         {
             SpawnBomb();
             Debug.Log("Bomb spawned at: " + transform.position);
+        }
+
+        if (Keyboard.current.tKey.wasPressedThisFrame)
+        {
+            SpawnBombTrail(bombTrailSpacing, numberOfTrailBombs); 
         }
 
         if (Keyboard.current.wKey.wasPressedThisFrame)
@@ -45,11 +57,27 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void SpawnBombTrail(float inBombSpacing, int inNumberOfBombs)// a parameter method that can accept different values
+                                                                        // the name is arbitrary anyway// tuy y
+    {
+        for (int i = 0; i < inNumberOfBombs; i++)
+        {
+            Vector3 offset = Vector3.up * inBombSpacing * (i + 1);
+
+            GameObject bomb = Instantiate(bombPrefab, bombsTransform);
+
+            bomb.transform.position = transform.position + offset;
+        }
+    }
+
+
     void SpawnBomb()
     {
         //random offset of -1 to 1 in both x and y axis by calling vector2
         Vector2 inOffset = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 5f));
+
         GameObject bomb = Instantiate(bombPrefab, bombsTransform); //Instantiates the bombPrefab as a child of bombsTransform
+
         bomb.transform.position = transform.position + (Vector3)inOffset;//so bomb position = the player's position + the random offset
     }  
 
