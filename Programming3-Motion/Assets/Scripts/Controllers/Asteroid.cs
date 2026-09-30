@@ -8,6 +8,8 @@ public class Asteroid : MonoBehaviour
     public float arrivalDistance;
     public float maxFloatDistance;
 
+    Vector3 randomPoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,5 +18,6 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 }

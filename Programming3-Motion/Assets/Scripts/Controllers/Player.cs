@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
+
 public class Player : MonoBehaviour
 {
     public List<Transform> asteroidTransforms;
@@ -129,10 +130,22 @@ public class Player : MonoBehaviour
         {
         accelerationDirection += Vector3.down;
         }
+
+        //accelerate while button is down
+        if (accelerationDirection != Vector3.zero)//if the direction is not at the reset position
+        {
+            currentVelocity += accelerationDirection.normalized * currentAcceleration * Time.deltaTime;
+            currentVelocity = Vector3.ClampMagnitude(currentVelocity, speed);
+
+        }
+        else
+        {//trying lerp interpolation, moving the current velocity toward zero
+            currentVelocity = Vector3.Lerp(currentVelocity, Vector3.zero, Time.deltaTime* decelerationTime);
+        }
+
         //ACCELERATION DIRECTION REPRESENTS THE DIRECTION WE ARE ACCELERATING
         //WE NORMALIZE IT 
-        //AND THEN SET THE AMOUNT TO ACCELERATE BY:
-        currentVelocity += accelerationDirection.normalized * currentAcceleration * Time.deltaTime;
+        //AND THEN SET THE AMOUNT TO ACCELERATE BY
 
         transform.position += currentVelocity * Time.deltaTime;
     }
