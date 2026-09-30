@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
     public float currentAcceleration;
     public Vector3 currentVelocity;
 
+    //Decellarator
+    public float decelerationTime;
+    public float currentDeceleration;
+
 
     void Start()
     {
@@ -37,6 +41,7 @@ public class Player : MonoBehaviour
         float distanceToUpDirection = Vector2.Distance(upDirection, Vector2.zero);
 
         currentAcceleration = speed / accelerationTime;
+        currentDeceleration = speed / decelerationTime;
         //transform.position = warpPoint * Time.deltaTime;
     }
 
@@ -103,24 +108,26 @@ public class Player : MonoBehaviour
     }
 
 
-    void PlayerMovement()
+    public void PlayerMovement()
     {
+
+        //BASIC ACCELERATION
         Vector3 accelerationDirection = Vector3.zero;
         if (Keyboard.current.leftArrowKey.isPressed)
         {
-            accelerationDirection += Vector3.left;
+        accelerationDirection += Vector3.left;
         }
         if (Keyboard.current.rightArrowKey.isPressed)
         {
-            accelerationDirection += Vector3.right;
+        accelerationDirection += Vector3.right;
         }
         if (Keyboard.current.upArrowKey.isPressed)
         {
-            accelerationDirection += Vector3.up;
+        accelerationDirection += Vector3.up;
         }
         if (Keyboard.current.downArrowKey.isPressed)
         {
-            accelerationDirection += Vector3.down;
+        accelerationDirection += Vector3.down;
         }
         //ACCELERATION DIRECTION REPRESENTS THE DIRECTION WE ARE ACCELERATING
         //WE NORMALIZE IT 
