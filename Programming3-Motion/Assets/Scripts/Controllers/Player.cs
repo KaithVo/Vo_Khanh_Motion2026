@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
@@ -15,6 +15,14 @@ public class Player : MonoBehaviour
     public float bombTrailSpacing;
     public int numberOfTrailBombs;
 
+    //Accelerator
+    public float speed;
+    public float accelerationTime;
+
+    public float currentAcceleration;
+    public Vector3 currentVelocity;
+
+
     void Start()
     {
         Vector2 currentMousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -27,10 +35,14 @@ public class Player : MonoBehaviour
 
         //Distance from origin to upDirection
         float distanceToUpDirection = Vector2.Distance(upDirection, Vector2.zero);
+
+        currentAcceleration = speed / accelerationTime;
+        //transform.position = warpPoint * Time.deltaTime;
     }
 
     void Update()
     {
+        PlayerMovement();
 
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
@@ -88,6 +100,34 @@ public class Player : MonoBehaviour
         transform.position += (Vector3)directionToEnemy * 1f; //move the player 5 units towards the enemy
 
 
+    }
+
+
+    void PlayerMovement()
+    {
+        Vector3 accelerationDirection = Vector3.zero;
+        if (Keyboard.current.leftArrowKey.isPressed)
+        {
+            accelerationDirection += Vector3.left;
+        }
+        if (Keyboard.current.rightArrowKey.isPressed)
+        {
+            accelerationDirection += Vector3.right;
+        }
+        if (Keyboard.current.upArrowKey.isPressed)
+        {
+            accelerationDirection += Vector3.up;
+        }
+        if (Keyboard.current.downArrowKey.isPressed)
+        {
+            accelerationDirection += Vector3.down;
+        }
+        //ACCELERATION DIRECTION REPRESENTS THE DIRECTION WE ARE ACCELERATING
+        //WE NORMALIZE IT 
+        //AND THEN SET THE AMOUNT TO ACCELERATE BY:
+        currentVelocity += accelerationDirection.normalized * currentAcceleration * Time.deltaTime;
+
+        transform.position += currentVelocity * Time.deltaTime;
     }
 
 }
