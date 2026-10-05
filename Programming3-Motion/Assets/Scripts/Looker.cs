@@ -23,6 +23,6 @@ public class Looker : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(0, 0, angle);
         }
-
+        Debug.Log(transform.eulerAngles.z);
     }
 }
