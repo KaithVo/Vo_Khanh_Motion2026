@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         EnemyRadar(2f, 8);
-        PlayerMovement();$
+        PlayerMovement();
 
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
