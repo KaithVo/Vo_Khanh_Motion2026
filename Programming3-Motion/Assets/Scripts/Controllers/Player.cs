@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
-
 public class Player : MonoBehaviour
 {
     public List<Transform> asteroidTransforms;
@@ -48,7 +47,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        PlayerMovement();
+        EnemyRadar(2f, 8);
+        PlayerMovement();$
 
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
@@ -149,5 +149,36 @@ public class Player : MonoBehaviour
 
         transform.position += currentVelocity * Time.deltaTime;
     }
+
+    public void EnemyRadar(float radius,int circlePoints)
+    {
+        float angle = 45f;
+
+        float enemyDistance = Vector3.Distance(transform.position,enemyTransform.position);
+
+        Color circleColor;
+
+        if (enemyDistance <= radius)
+        {
+            circleColor = Color.red;
+        }
+        else
+        {
+            circleColor = Color.green;
+        }
+
+        Vector3 previousPoint = transform.position + new Vector3(Mathf.Cos(0) * radius, Mathf.Sin(0) * radius, 0);
+
+
+        for (int i = 0; i <= circlePoints; i++)
+        {
+            float currentAngle = angle* i * Mathf.Deg2Rad;
+            Vector3 currentPoint = transform.position + new Vector3(Mathf.Cos(currentAngle) * radius, Mathf.Sin(currentAngle) * radius, 0);
+            Debug.DrawLine(previousPoint, currentPoint, circleColor);
+            previousPoint = currentPoint;
+        }
+
+    }
+
 
 }
