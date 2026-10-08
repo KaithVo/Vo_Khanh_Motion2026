@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
 
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
-
+            Shoot();
         }
 
 
@@ -178,6 +178,24 @@ public class Player : MonoBehaviour
             previousPoint = currentPoint;
         }
 
+    }
+    // BulletTriangular
+
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+
+    public float spreadAngle = 30f;
+
+    void Shoot()
+    {
+        // Middle
+        Instantiate(bulletPrefab,firePoint.position,firePoint.rotation);
+
+        // Top
+        Instantiate(bulletPrefab,firePoint.position,firePoint.rotation * Quaternion.Euler(0, 0, spreadAngle));
+
+        // Bottom
+        Instantiate(bulletPrefab,firePoint.position,firePoint.rotation * Quaternion.Euler(0, 0, -spreadAngle));
     }
 
 

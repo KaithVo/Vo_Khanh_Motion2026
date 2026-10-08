@@ -456,6 +456,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4194190890010494449, guid: 462add3d0f7c62a4682e9c053b00ec93, type: 3}
   m_PrefabInstance: {fileID: 1384152678}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &349102332 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7969683946929540427, guid: 462add3d0f7c62a4682e9c053b00ec93, type: 3}
+  m_PrefabInstance: {fileID: 1384152678}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &366221041
 GameObject:
   m_ObjectHideFlags: 0
@@ -3415,6 +3420,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 5217765911224801707, guid: 51cd347de5da74ef2af8534d3dd29ab3, type: 3}
+    - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: warpRatio
       value: 0.1
       objectReference: {fileID: 0}
@@ -3434,6 +3443,10 @@ PrefabInstance:
       propertyPath: bombOffset.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 349102332}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: maxRadarRange
       value: 2
