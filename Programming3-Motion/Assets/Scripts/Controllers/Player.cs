@@ -1,7 +1,7 @@
-﻿
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
@@ -26,6 +26,15 @@ public class Player : MonoBehaviour
     public float decelerationTime;
     public float currentDeceleration;
 
+    //Triangular Shoot
+    [Header ("Triangular Shoot")]
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+
+    public float bulletSpeed = 8f;
+    public float spreadAngle = 30f;
+    public float splitDelay = 1f;
+    public float disappearDelay = 3f;
 
     void Start()
     {
@@ -50,10 +59,65 @@ public class Player : MonoBehaviour
         EnemyRadar(2f, 8);
         PlayerMovement();
 
+
+        //Triangula Shoot akey
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
-            Shoot();
+            StartCoroutine(ShootAndSplt());
         }
+
+        IEnumerator ShootAndSplt()
+        {
+            // Step 1: Create one bullet at the player's FirePoint
+            GameObject bullet = Instantiate(bulletPrefab,firePoint.position,firePoint.rotation);
+
+            // Step 2: Let the bullet move forward for 1 second
+            float timer = 0.5f;
+
+            while (timer < splitDelay)
+            {
+                bullet.transform.position +=bullet.transform.up * bulletSpeed * Time.deltaTime;
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            // Step 3: Remember where the bullet has travelled
+            Vector3 splitPosition = bullet.transform.position;
+            Quaternion originalRotation = bullet.transform.rotation;
+
+            // Step 4: Remove the original bullet
+            Destroy(bullet);
+
+            // Step 5: Create three bullets at the split position
+            GameObject middle = Instantiate(bulletPrefab, splitPosition, originalRotation);
+
+            GameObject top = Instantiate(bulletPrefab, splitPosition,originalRotation * Quaternion.Euler(0, 0, spreadAngle));
+
+            GameObject bottom = Instantiate(bulletPrefab, splitPosition,originalRotation * Quaternion.Euler(0, 0, -spreadAngle));
+
+            // Step 6: Let all three bullets move for 3 seconds
+            timer = 0f;
+
+            while (timer < disappearDelay)
+            {
+                middle.transform.position +=middle.transform.up * bulletSpeed * Time.deltaTime;
+
+                top.transform.position +=top.transform.up * bulletSpeed * Time.deltaTime;
+
+                bottom.transform.position +=bottom.transform.up * bulletSpeed * Time.deltaTime;
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            // Step 7: Remove all three bullets
+            Destroy(middle);
+            Destroy(top);
+            Destroy(bottom);
+        }
+
+
 
 
         //if press B spawn the bomb prefab at the player's position with a random offset of -1 to 1 in both x and y axis
@@ -65,7 +129,7 @@ public class Player : MonoBehaviour
 
         if (Keyboard.current.tKey.wasPressedThisFrame)
         {
-            SpawnBombTrail(bombTrailSpacing, numberOfTrailBombs); 
+            SpawnBombTrail(bombTrailSpacing, numberOfTrailBombs);
         }
 
         if (Keyboard.current.wKey.wasPressedThisFrame)
@@ -97,7 +161,7 @@ public class Player : MonoBehaviour
         GameObject bomb = Instantiate(bombPrefab, bombsTransform); //Instantiates the bombPrefab as a child of bombsTransform
 
         bomb.transform.position = transform.position + (Vector3)inOffset;//so bomb position = the player's position + the random offset
-    }  
+    }
 
     void Wrap()
     {
@@ -116,19 +180,19 @@ public class Player : MonoBehaviour
         Vector3 accelerationDirection = Vector3.zero;
         if (Keyboard.current.leftArrowKey.isPressed)
         {
-        accelerationDirection += Vector3.left;
+            accelerationDirection += Vector3.left;
         }
         if (Keyboard.current.rightArrowKey.isPressed)
         {
-        accelerationDirection += Vector3.right;
+            accelerationDirection += Vector3.right;
         }
         if (Keyboard.current.upArrowKey.isPressed)
         {
-        accelerationDirection += Vector3.up;
+            accelerationDirection += Vector3.up;
         }
         if (Keyboard.current.downArrowKey.isPressed)
         {
-        accelerationDirection += Vector3.down;
+            accelerationDirection += Vector3.down;
         }
 
         //accelerate while button is down
@@ -140,7 +204,7 @@ public class Player : MonoBehaviour
         }
         else
         {//trying lerp interpolation, moving the current velocity toward zero
-            currentVelocity = Vector3.Lerp(currentVelocity, Vector3.zero, Time.deltaTime* decelerationTime);
+            currentVelocity = Vector3.Lerp(currentVelocity, Vector3.zero, Time.deltaTime * decelerationTime);
         }
 
         //ACCELERATION DIRECTION REPRESENTS THE DIRECTION WE ARE ACCELERATING
@@ -150,11 +214,11 @@ public class Player : MonoBehaviour
         transform.position += currentVelocity * Time.deltaTime;
     }
 
-    public void EnemyRadar(float radius,int circlePoints)
+    public void EnemyRadar(float radius, int circlePoints)
     {
         float angle = 45f;
 
-        float enemyDistance = Vector3.Distance(transform.position,enemyTransform.position);
+        float enemyDistance = Vector3.Distance(transform.position, enemyTransform.position);
 
         Color circleColor;
 
@@ -172,31 +236,12 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i <= circlePoints; i++)
         {
-            float currentAngle = angle* i * Mathf.Deg2Rad;
+            float currentAngle = angle * i * Mathf.Deg2Rad;
             Vector3 currentPoint = transform.position + new Vector3(Mathf.Cos(currentAngle) * radius, Mathf.Sin(currentAngle) * radius, 0);
             Debug.DrawLine(previousPoint, currentPoint, circleColor);
             previousPoint = currentPoint;
         }
 
     }
-    // BulletTriangular
-
-    public GameObject bulletPrefab;
-    public Transform firePoint;
-
-    public float spreadAngle = 30f;
-
-    void Shoot()
-    {
-        // Middle
-        Instantiate(bulletPrefab,firePoint.position,firePoint.rotation);
-
-        // Top
-        Instantiate(bulletPrefab,firePoint.position,firePoint.rotation * Quaternion.Euler(0, 0, spreadAngle));
-
-        // Bottom
-        Instantiate(bulletPrefab,firePoint.position,firePoint.rotation * Quaternion.Euler(0, 0, -spreadAngle));
-    }
-
 
 }
