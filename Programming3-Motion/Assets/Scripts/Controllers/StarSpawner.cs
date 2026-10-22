@@ -25,11 +25,7 @@ public class StarSpawner : MonoBehaviour
             Vector2 spawnPosition = new Vector2(randomX, randomY);
 
             // Create a star at that position
-            GameObject newStar = Instantiate(
-                starPrefab,
-                spawnPosition,
-                Quaternion.identity
-            );
+            GameObject newStar = Instantiate(starPrefab,spawnPosition,Quaternion.identity);
 
             // Add the new star to the boomerang's list
             boomerang.stars.Add(newStar.transform);

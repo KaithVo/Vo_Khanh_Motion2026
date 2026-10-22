@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
         PlayerMovement();
         //Boomerang
 
-        if (Keyboard.current.bKey.wasPressedThisFrame)
+        if (Keyboard.current.dKey.wasPressedThisFrame)
         {
 
             Vector2 spawnPosition = (Vector2)transform.position+ (Vector2)transform.up * spawnDistance;
