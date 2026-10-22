@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6898982465300851126}
   - component: {fileID: 8338172052341704231}
+  - component: {fileID: 3202060254888542163}
   m_Layer: 0
   m_Name: Boomerang
   m_TagString: Untagged
@@ -91,3 +92,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3202060254888542163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337941510092583582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419cd6ea7ddfe4046a3743bf869f3894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boomerang
+  player: {fileID: 6898982465300851126}
+  stars: []
+  outwardDistance: 6
+  outwardDuration: 1.5
+  returnDuration: 1.2
+  curveHeight: 2
+  rotationSpeed: 360

@@ -36,6 +36,11 @@ public class Player : MonoBehaviour
     public float splitDelay = 1f;
     public float disappearDelay = 3f;
 
+    //Boomerang
+    public GameObject boomerangPrefab;
+    public float spawnDistance = 1f;
+    public Boomerang boomerang;
+
     void Start()
     {
         Vector2 currentMousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -58,7 +63,15 @@ public class Player : MonoBehaviour
     {
         EnemyRadar(2f, 8);
         PlayerMovement();
+        //Boomerang
 
+        if (Keyboard.current.bKey.wasPressedThisFrame)
+        {
+
+            Vector2 spawnPosition = (Vector2)transform.position+ (Vector2)transform.up * spawnDistance;
+
+            Instantiate(boomerang, spawnPosition, transform.rotation);
+        }
 
         //Triangula Shoot akey
         if (Keyboard.current.aKey.wasPressedThisFrame)
