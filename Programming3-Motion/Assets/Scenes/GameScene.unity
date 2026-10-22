@@ -728,6 +728,7 @@ MonoBehaviour:
   starCount: 10
   spawnMin: {x: -7, y: -3}
   spawnMax: {x: 7, y: 4}
+  boomerang: {fileID: 3202060254888542163, guid: 0c3af8dc308d94cb88feee191a06fcd7, type: 3}
 --- !u!4 &374931123
 Transform:
   m_ObjectHideFlags: 0
@@ -950,6 +951,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4194190890010494449, guid: 462add3d0f7c62a4682e9c053b00ec93, type: 3}
   m_PrefabInstance: {fileID: 73178459}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &590777385 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1742679311805458, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+  m_PrefabInstance: {fileID: 2030902519}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &604982759 stripped
 Transform:
@@ -1522,6 +1528,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4408196811525658, guid: abc125f00ae369940b2c5c0275186637, type: 3}
   m_PrefabInstance: {fileID: 2030902519}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1047531863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590777385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419cd6ea7ddfe4046a3743bf869f3894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boomerang
+  player: {fileID: 1047531861}
+  stars: []
+  outwardDistance: 6
+  outwardDuration: 1.5
+  returnDuration: 1.2
+  curveHeight: 2
+  rotationSpeed: 360
 --- !u!1 &1088617404
 GameObject:
   m_ObjectHideFlags: 0
@@ -3738,6 +3763,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      propertyPath: boomerang
+      value: 
+      objectReference: {fileID: 3202060254888542163, guid: 0c3af8dc308d94cb88feee191a06fcd7, type: 3}
+    - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 482840557}
@@ -3777,6 +3806,10 @@ PrefabInstance:
       propertyPath: enemyTransform
       value: 
       objectReference: {fileID: 892270334}
+    - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      propertyPath: boomerangPrefab
+      value: 
+      objectReference: {fileID: 337941510092583582, guid: 0c3af8dc308d94cb88feee191a06fcd7, type: 3}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: accelerationTime
       value: 2
@@ -3891,7 +3924,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4408196811525658, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       insertIndex: -1
       addedObject: {fileID: 482840557}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1742679311805458, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1047531863}
   m_SourcePrefab: {fileID: 100100000, guid: abc125f00ae369940b2c5c0275186637, type: 3}
 --- !u!1001 &2097146127
 PrefabInstance:
