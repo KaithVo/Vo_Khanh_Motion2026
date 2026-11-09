@@ -63,7 +63,7 @@ public class GunshipController : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         Debug.Log("Collision exit");
-        Destroy(collision.gameObject);
+
     }
 
 }
