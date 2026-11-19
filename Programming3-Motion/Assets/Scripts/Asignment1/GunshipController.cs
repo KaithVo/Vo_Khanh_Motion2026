@@ -1,3 +1,5 @@
+
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,17 +27,43 @@ public class GunshipController : MonoBehaviour
             // add force to the cannonball in the direction that the cannon is facing
             Rigidbody2D rb = cannonball.GetComponent<Rigidbody2D>();
             rb.AddForce(leftDirection.normalized * cannonballForce);
+
+            //TEST2: IGNORE COLLIDER
+            Collider2D cannonballCollider = cannonball.GetComponent<Collider2D>();
+            Collider2D gunCollider = GetComponent<Collider2D>();
+
+            Physics2D.IgnoreCollision(cannonballCollider, gunCollider);
+
+
+            //TEST 3: GETIGNORECOLLISION
+            bool isIgnoring = Physics2D.GetIgnoreCollision(cannonballCollider, Collider)
+
+            Debug.Log("Ignoring collision: " + isIgnoring);
+            //Test1: Toque
+            rb.AddTorque(590f);
         }
 
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             //If the right mouse button was pressed this frame, we want to fire a cannonball from the right cannon
             GameObject cannonball = Instantiate(cannonballPrefab, rightCannon.position, Quaternion.identity);
+
             // add force to the cannonball in the direction that the cannon is facing
             Rigidbody2D rb = cannonball.GetComponent<Rigidbody2D>();
             rb.AddForce(rightDirection.normalized * cannonballForce);
+
+            //TEST2: IGNORE COLLIDER
+            Collider2D cannonballCollider = cannonball.GetComponent<Collider2D>();
+            Collider2D gunCollider = GetComponent<Collider2D>();
+
+            Physics2D.IgnoreCollision(cannonballCollider, gunCollider);
+
+            //Test1: Toque
+            rb.AddTorque(509f);
         }
+
     }
+
 
     //Given a target position and the transform of a cannon, aims that cannon at that target
     private Vector3 AimCannon(Vector3 target, Transform cannon)

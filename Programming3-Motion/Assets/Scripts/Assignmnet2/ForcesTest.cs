@@ -28,7 +28,7 @@ public class ForcesTest : MonoBehaviour
     void Update()
     {
 
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+       // if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             Vector3 mousePosition = Mouse.current.position.ReadValue();
             Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
